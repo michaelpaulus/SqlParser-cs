@@ -92,11 +92,14 @@ public abstract record TableFactor : IWriteSql, IElement
 
         public override void ToSql(SqlTextWriter writer)
         {
-            writer.WriteSql($"({TableWithJoins})");
-
             if (Alias != null)
             {
+                writer.WriteSql($"({TableWithJoins})");
                 writer.WriteSql($" AS {Alias}");
+            }
+            else
+            {
+                writer.WriteSql($"{TableWithJoins}");
             }
         }
     }
